@@ -1,0 +1,76 @@
+{"intents": [
+        {"tag": "greeting",
+         "patterns": ["Hi there", "How are you doing?", "Is anyone there?", "Hey, how's it going?", "Hola, bot!", "Hello there"],
+         "responses": ["Hello", "Good to see you again", "Hi there, how can I help?"],
+         "context": [""]
+        },
+        {"tag": "goodbye",
+         "patterns": ["Bye", "See you later", "Goodbye", "Nice chatting to you, bye", "Till next time"],
+         "responses": ["See you!", "Have a nice day", "Bye! Come back again soon."],
+         "context": [""]
+        },
+        {"tag": "thanks",
+         "patterns": ["Thanks", "Thank you", "That's helpful", "Awesome, thanks", "Thanks for helping me"],
+         "responses": ["My pleasure", "You're Welcome"],
+         "context": [""]
+        },
+        {"tag": "query",
+         "patterns": ["What is Simplilearn?"],
+         "responses": ["Simplilearn is the popular online Bootcamp & online courses learning platform "],
+         "context": [""]
+        },
+        {
+  "tag": "weather",
+  "patterns": [
+    "What is the weather in Delhi?",
+    "Tell me the weather of Mumbai",
+    "Weather in Bangalore?",
+    "What is weather of delhi",
+    "How's the weather in Chennai?",
+    "Current weather in Pune"
+  ],
+  "responses": ["Fetching weather..."],
+  "context": [""]
+},
+{
+  "tag": "fallback",
+  "patterns": [
+    "asdasd", "blabla", "random stuff", "!!!", "123abc", "JKLJKL", "Whatttt", "noooope", "NONSENSE",
+    "qwertyuiop", "I'm a unicorn", "🚀🔥💥", "Lorem ipsum", "ghfhgf", "bababooey", "asdfghjkl", "JJJ", "fffff",
+    "I don't understand", "huh", "what's that", "tell me something", "random words here",
+    "this is not a question", "nonsense input", "gibberish", "can you help me with this random text",
+    "i just typed something", "garbage", "mumble jumble", "random numbers 123456",
+    "dfjgkjsdfg", "sjgklsjdfg", "fjdklfgj dfklgjfdlkgj", "fklgjdflkgj fklgjdflkgjfdlkgjfdlkgj",
+    "hello there what's up with the purple cows today",
+    "i like turtles", "bananas are cool", "my dog is furry"
+  ],
+  "responses": [
+    "I'm sorry, I didn't understand that. Can you try rephrasing?",
+    "Hmm... I didn't quite get that.",
+    "I'm still learning! Please try asking differently.",
+    "That's not something I'm trained to respond to. Can I help with something else?",
+    "I'm not sure what you mean by that.",
+    "Could you please elaborate?"
+  ],
+  "context": [""]
+},
+{  
+      "tag": "website_open",
+      "patterns": [
+        "open {{site_name}}",
+        "go to {{site_name}}",
+        "can you open {{site_name}} for me",
+        "launch {{site_name}}",
+        "take me to {{site_name}}",
+        "website for {{site_name}}"
+      ],
+      "responses": [
+        "Opening {{site_name}} now.",
+        "Launching {{site_name}} for you.",
+        "Here's {{site_name}} in your browser."
+      ]
+    }
+
+
+
+]} 

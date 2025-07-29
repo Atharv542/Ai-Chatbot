@@ -34,23 +34,50 @@ def upload_file():
             chat_log.insert(tk.END, f"❌ Error reading file: {str(e)}\n", "bot")
         chat_log.config(state=tk.DISABLED)
 
-
-def send_message():
+def send_message_with_typing():
     msg = entry.get()
     if msg.strip() == "":
         return
+
+    # Insert user's message
     chat_log.config(state=tk.NORMAL)
     chat_log.insert(tk.END, f"You: {msg}\n", "user")
-    response = generate_response(msg)
-    chat_log.insert(tk.END, f"Bot: {response}\n\n", "bot")
+    chat_log.insert(tk.END, "Bot: Typing...\n", "bot")  # Temporary typing animation
     chat_log.config(state=tk.DISABLED)
     chat_log.yview(tk.END)
     entry.delete(0, tk.END)
 
+    # Simulate a short delay
+    def display_response():
+        chat_log.config(state=tk.NORMAL)
+        chat_content = chat_log.get("1.0", tk.END)
+
+        # Remove the "Typing..." line
+        lines = chat_content.strip().split('\n')
+        if lines and lines[-1] == "Bot: Typing...":
+            chat_log.delete("end-2l", "end-1l")  # Delete last line
+
+        # Generate actual response
+        response = generate_response(msg)
+        chat_log.insert(tk.END, f"Bot: {response}\n\n", "bot")
+        chat_log.config(state=tk.DISABLED)
+        chat_log.yview(tk.END)
+
+    root.after(1000, display_response)  # 1-second delay
+
+def send_message_without_typing(predefined_msg):
+    chat_log.config(state=tk.NORMAL)
+    chat_log.insert(tk.END, f"You: {predefined_msg}\n", "user")
+    response = generate_response(predefined_msg)
+    chat_log.insert(tk.END, f"Bot: {response}\n\n", "bot")
+    chat_log.config(state=tk.DISABLED)
+    chat_log.yview(tk.END)
+
+
 def send_predefined_message(text):
     entry.delete(0, tk.END)
-    entry.insert(0, text)
-    send_message()
+    send_message_without_typing(text)
+
 
 def toggle_fullscreen():
     global is_fullscreen
@@ -85,14 +112,15 @@ bottom_frame.pack(fill=tk.X, pady=5)
 
 entry = tk.Entry(bottom_frame, font=("Arial", 14), bg="#3e3e3e", fg="white", insertbackground="white")
 entry.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=10)
-entry.bind("<Return>", lambda event: send_message())
+entry.bind("<Return>", lambda event: send_message_with_typing())
 
 upload_btn = tk.Button(bottom_frame, text="➕", font=("Arial", 12), bg="#444", fg="white",
                        command=upload_file, relief=tk.FLAT, width=4)
 upload_btn.pack(side=tk.LEFT, padx=5)
-
-send_button = tk.Button(bottom_frame, text="Send", font=("Arial", 12), bg="#2E8B57", fg="white",
-                        command=send_message, relief=tk.FLAT)
+send_button = tk.Button(
+    bottom_frame, text="Send", font=("Arial", 12),
+    bg="#2E8B57", fg="white", command=send_message_with_typing, relief=tk.FLAT
+)
 send_button.pack(side=tk.LEFT, padx=5)
 
 suggestion_frame = tk.Frame(root, bg="#1e1e1e")
